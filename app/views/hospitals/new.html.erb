@@ -1,0 +1,54 @@
+<style>
+.hidden{
+    display:none;
+}
+</style>
+<h1>Hello</h1>
+<%= form_with scope: :hospital, url:@hospital, local: true do |form| %>
+ 
+  <% if @hospital.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@hospital.errors.count, "error") %> prohibited
+        this hospital from being saved:
+      </h2>
+      <ul>
+        <% @hospital.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+    <%= form.label :Hname,class:"hidden" %>Hospital name<br>
+    <%= form.text_field :Hname %>
+  </p>
+ 
+  <p>
+    <%= form.label :contact ,class:"hidden"%>Contact No<br>
+    <%= form.text_field :contact %>
+  </p>
+
+ <p>
+    <%= form.label :Haddress,class:"hidden" %>Hospital Address<br>
+    <%= form.text_field :Haddress %>
+  </p>
+  <p>
+    <%= form.label :email %><br>
+    <%= form.text_field :email %>
+  </p>
+  <p>
+    <%= form.label :website%><br>
+    <%= form.text_field :website%>
+  </p>
+   <p>
+    <%= form.label :no_of_test,class:"hidden"%>Number of Tests/day<br>
+    <%= form.text_field :no_of_test %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>
+ 

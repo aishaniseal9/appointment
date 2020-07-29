@@ -1,0 +1,30 @@
+<p>
+<strong>Name</strong>
+ <%= @user.name %>
+</p>
+<p>
+<strong>Contact No</strong>
+ <%= @user.contactno %>
+</p>
+<p>
+<strong>Address</strong>
+ <%= @user.address %>
+</p>
+<p>
+<strong>Email</strong>
+ <%= @user.email %>
+</p>
+<strong>Date of Birth</strong>
+ <%= @user.dob %>
+</p>
+<p>
+<strong>Blood Grp</strong>
+ <%= @user.bloodgrp %>
+</p>
+<%= link_to 'Available Tests List',tests_path,target: :_blank%>
+<%= link_to 'Hospital List','/hospitals/list',target: :_blank%>
+<%= link_to 'Edit', edit_user_path(@user) %> 
+<%= link_to 'Back',new_user_path%>
+<%= link_to 'Destroy', user_path(@user),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>

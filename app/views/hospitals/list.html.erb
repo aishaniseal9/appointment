@@ -1,0 +1,27 @@
+<h1>Lists Of Hospitals</h1>
+
+<table>
+  <tr>
+    <th>Hospital Name</th>
+    <th>Hospital Contact</th>
+     <th>Hospital Address</th>
+    <th>Hospital Email</th>
+     <th>Hospital Website</th>
+      <th>Number of tests/day</th>
+      <th>Current date</th>
+  </tr>
+  <%@hospitals.each do |hospital|%>
+  <tr>
+      <td><%= hospital.Hname %></td>
+      <td><%= hospital.contact %></td>
+       <td><%= hospital.Haddress %></td>
+        <td><%= hospital.email %></td>
+         <td><%= hospital.website %></td>
+          <td><%= hospital.no_of_test %></td>
+           <td><%= hospital.cur_date %></td>
+      
+    </tr>
+  <% end %>
+</table>
+
+ 

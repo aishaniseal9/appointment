@@ -1,0 +1,31 @@
+<h1>Lists Of Hospitals</h1>
+
+<table>
+  <tr>
+    <th>Hospital Name</th>
+    <th>Hospital Contact</th>
+     <th>Hospital Address</th>
+    <th>Hospital Email</th>
+     <th>Hospital Website</th>
+      <th>Number of tests/day</th>
+      <th>Current date</th>
+  </tr>
+  <%@hospitals.each do |hospital|%>
+  <tr>
+      <td><%= hospital.Hname %></td>
+      <td><%= hospital.contact %></td>
+       <td><%= hospital.Haddress %></td>
+        <td><%= hospital.email %></td>
+         <td><%= hospital.website %></td>
+          <td><%= hospital.no_of_test %></td>
+           <td><%= hospital.cur_date %></td>
+      <td><%= link_to 'Show', hospital_path(hospital) %></td>
+      <td><%= link_to 'Edit', edit_hospital_path(hospital) %></td>
+       <td><%= link_to 'Destroy', hospital_path(hospital),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to 'New hospital', new_hospital_path %>
+ 

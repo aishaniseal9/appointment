@@ -1,0 +1,19 @@
+<h1>Lists Of Tests</h1>
+
+<table>
+  <tr>
+    <th>Test Name</th>
+    <th>Test Description</th>
+    <th>Test Amount</th>
+  </tr>
+  <%@tests.each do |test|%>
+  <tr>
+      <td><%= test.name %></td>
+      <td><%= test.testdescription %></td>
+       <td><%= test.testamount %></td>
+     
+    </tr>
+  <% end %>
+</table>
+
+ 

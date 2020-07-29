@@ -1,0 +1,31 @@
+<p>
+<strong>Name</strong>
+ <%= @hospital.Hname %>
+</p>
+<p>
+<strong>Contact No</strong>
+ <%= @hospital.contact %>
+</p>
+<p>
+<strong>Address</strong>
+ <%= @hospital.Haddress %>
+</p>
+<p>
+<strong>Email</strong>
+ <%= @hospital.email %>
+</p>
+<strong>WebSite</strong>
+ <%= @hospital.website %>
+</p>
+<p>
+<strong>No_of_test/day</strong>
+ <%= @hospital.no_of_test %>
+</p>
+<strong>Current day</strong>
+ <%= @hospital.cur_date %>
+</p>
+<%= link_to 'Edit', edit_hospital_path(@hospital) %> 
+<%= link_to 'Back',hospitals_path%>
+<%= link_to 'Destroy', hospital_path(@hospital),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>

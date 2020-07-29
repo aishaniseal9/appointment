@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bookingdate: 2020-07-28
+  bookingtime: 2020-07-28 01:57:09
+  user: one
+  hospital: one
+  test: one
+
+two:
+  bookingdate: 2020-07-28
+  bookingtime: 2020-07-28 01:57:09
+  user: two
+  hospital: two
+  test: two

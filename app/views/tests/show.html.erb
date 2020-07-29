@@ -1,0 +1,23 @@
+<p>
+<strong>Name</strong>
+ <%= @test.name %>
+</p>
+<p>
+<strong>Test Description</strong>
+ <%= @test.testdescription %>
+</p>
+<p>
+<strong>Test Amount</strong>
+ <%= @test.testamount %>
+</p>
+<p>
+<strong>Hospital</strong>
+ <%= @hospital.Hname %>
+</p>
+<p>
+
+<%= link_to 'Edit', edit_test_path(@test) %> 
+<%= link_to 'Back',tests_path%>
+<%= link_to 'Destroy', test_path(@test),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
