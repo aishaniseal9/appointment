@@ -1,0 +1,15 @@
+<h1>Custom Search</h1>
+<%=form_for (@search),local:true do |f| %>
+<div class="field">
+<%= f.label :test_name %><br/>
+<%= f.text_field :test_name %>
+</div>
+<div class="field">
+<%= f.label :hospital_name %><br/>
+<%= f.text_field :hospital_name %>
+</div>
+<div class="actions"><%= f.submit "Search"%><br/>
+<%end%>
+<p>
+<%= link_to 'Back',hospital_tests_path %>
+</p>

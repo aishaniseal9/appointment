@@ -1,6 +1,15 @@
 <h1>New Appointment Application</h1>
-<h3>Welcome on board
-</h3>
+<h3>Welcome on board</h3>
+<%if current_user %>
+<%= link_to 'Go to bookings page',user_path(current_user)%>
+<%end%>
+<%= image_tag('clinic.jpg')%>
 
-<%= link_to 'Log In', controller: 'register_users'%>
-<%= link_to  'Sign Up', controller: 'users' %>
+<div class="hidden">
+<% if current_user %>
+<%= link_to 'Sign Out',destroy_user_session_path,method: :delete %>
+<% else %>
+<%= link_to  'Sign Up', new_user_registration_path %>
+<%= link_to 'Sign In',new_user_session_path(@user)%>
+<% end %>
+</div>

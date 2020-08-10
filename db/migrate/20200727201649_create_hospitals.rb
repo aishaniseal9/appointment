@@ -7,7 +7,7 @@ class CreateHospitals < ActiveRecord::Migration[6.0]
       t.string :email
       t.string :website
       t.integer :no_of_test
-      t.date :cur_date
+     
 
       t.timestamps
     end

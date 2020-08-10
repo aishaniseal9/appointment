@@ -1,0 +1,39 @@
+<%= link_to "Custom Search",new_search_path%>
+ <h1>Lists Of Tests and their Hospitals</h1>
+
+<table>
+  <tr>
+    <th>Test Name</th>
+    <th>Test Amount</th>
+    <th>Hospital Name</th>
+    
+  </tr>
+  <%@hospital_tests.each do |hospital|%>
+  <tr>
+      <td><%= Test.find(hospital.test_id).name %></td>
+       <td><%= Test.find(hospital.test_id).testamount %></td>
+           <td><%= Hospital.find(hospital.hospital_id).Hname %></td>
+      <td> <%= button_to 'Show',hospital_test_path(hospital),:method => :get %></td>
+      <%if current_user && current_user.admin? %>
+      <td><%= link_to 'Edit', edit_hospital_test_path(hospital) %></td>
+      <%end%>
+      <%if user_signed_in?%>
+      <td><%= button_to 'Book Appointment',user_path(current_user),:method=> :get%></td>
+      <%else%>
+      <td>
+      <%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get%>
+      </td>
+      <%end%>
+      </td>
+      <%if current_user && current_user.admin? %>
+       <td><%= link_to 'Destroy', hospital_test_path(hospital),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+      <%end%>
+    </tr>
+  <% end %>
+</table>
+<%if current_user && current_user.admin? %>
+<%= link_to 'New test and hospital generation', new_hospital_test_path %>
+<%end%>
+ 

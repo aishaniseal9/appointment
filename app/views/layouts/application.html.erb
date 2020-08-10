@@ -7,9 +7,72 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
+    <%= javascript_pack_tag 'booking.js' %>
+		 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'booking.js'%>
+		<%= javascript_include_tag 'user.js'%>
+	
+  
+   </head>
   <body>
-    <%= yield %>
+  <header id="header">
+			<div class="innertube">
+				<h1>Booking Appointment System</h1>
+					<div class="a">
+				<% if current_user %>
+				<%= link_to 'Sign Out',destroy_user_session_path,method: :delete %>
+				<% else %>
+				<%= link_to  'Sign Up', new_user_registration_path %>
+		    <%= link_to 'Sign In',new_user_session_path(@user)%>
+		    <% end %>
+		    </div>
+				
+		</header>
+    <div id="wrapper">
+    <main>
+				<div id="content">
+					<div class="innertube">
+				<p class="notice"><%= notice %></p>
+					<p class="alert"><%= alert %></p>
+    <%= yield %>	
+    </div>
+				</div>
+			</main>
+
+    <nav id="nav">
+				<div class="innertube">
+					<h3>Lists</h3>
+					<ul>
+						<li><%= link_to 'List of Test',tests_path%></li>
+						<li><%= link_to 'List of Hospitals',hospitals_path%></li>
+						<li><%= link_to 'List of Appointments',hospital_tests_path %></li>
+						<!--<li><%= link_to 'List of Users',users_path%></li>-->
+						<li><a href="#" class="hidden">B</a></li>
+					</ul>
+					<h3></h3>
+					<ul class="hidden">
+						<li><a href="#">C</a></li>
+						<li><a href="#">D</a></li>
+						<li><a href="#">E</a></li>
+						<li><a href="#">F</a></li>
+						<li><a href="#">G</a></li>
+					</ul>
+					<h3></h3>
+					<ul >
+						<li><a href="#" class="hidden">>H</a></li>
+						<li><a href="#" class="hidden">>I</a></li>
+						<li><a href="#" class="hidden">>J</a></li>
+						<li><a href="#" class="hidden">>K</a></li>
+						<li><a href="#" class="hidden">>L</a></li>
+					</ul>
+          
+				</div>
+			</nav>
+      </div>
+    <footer id="footer">
+			<div class="innertube">
+				<p>&copy; A & C Pvt Ltd </p>
+			</div>
+		</footer>
   </body>
 </html>

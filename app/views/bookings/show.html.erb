@@ -1,0 +1,26 @@
+<table>
+  <tr>
+    <th>Booking Id</th>
+    <th>Test Name</th>
+    <th>Hospital Name</th>
+    <th>User Name</th>
+    <th>Booking Date</th>
+    <th>Booking time</th>
+    
+  </tr>
+ 
+  <tr>
+      <td><%= @booking.id %></td>
+      <td><%= Test.find(HospitalTest.find(@booking.hospital_test_id).id).name %></td> 
+      <td><%= Hospital.find(HospitalTest.find(@booking.hospital_test_id).id).name %></td>
+      <td><%= User.find(@booking.user_id).name %></td>
+      <td><%= @booking.bookingdate %></td>
+      <td><%= @booking.bookingtime %></td>
+      <td><%= button_to 'Show', booking_path(@booking) %></td>
+      <td><%= link_to 'Edit', edit_booking_path(@booking) %></td>
+       <td><%= link_to 'Cancel Appointment', booking_path(@booking),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+
+</table>

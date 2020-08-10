@@ -1,31 +1,58 @@
-<p>
-<strong>Name</strong>
- <%= @hospital.Hname %>
-</p>
-<p>
-<strong>Contact No</strong>
- <%= @hospital.contact %>
-</p>
-<p>
-<strong>Address</strong>
- <%= @hospital.Haddress %>
-</p>
-<p>
-<strong>Email</strong>
- <%= @hospital.email %>
-</p>
-<strong>WebSite</strong>
- <%= @hospital.website %>
-</p>
-<p>
-<strong>No_of_test/day</strong>
- <%= @hospital.no_of_test %>
-</p>
-<strong>Current day</strong>
- <%= @hospital.cur_date %>
-</p>
-<%= link_to 'Edit', edit_hospital_path(@hospital) %> 
+<table>
+  <tr>
+    <th>Hospital Name</th>
+    <th>Hospital Contact</th>
+     <th>Hospital Address</th>
+    <th>Hospital Email</th>
+     <th>Hospital Website</th>
+      <th>Number of tests/day</th>
+      
+      
+  </tr>
+  <tr>
+      <td><%= @hospital.Hname %></td>
+      <td><%= @hospital.contact %></td>
+       <td><%= @hospital.Haddress %></td>
+        <td><%= @hospital.email %></td>
+         <td><%= @hospital.website %></td>
+          <td><%= @hospital.no_of_test %></td>
+           
+    </tr>
+    </table>
+
+
+<table><tr>
+<th>Tests Name:Conducted Under the hospital</th>
+</tr>
+<% @hospital.tests.each do |form|%>
+
+
+<tr>
+<td><%= form.name %></td>
+<% @hospitaltest=HospitalTest.where("test_id = ? AND hospital_id = ?", form.id, @hospital.id)%>
+<!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
+<td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
+<%if user_signed_in? && current_user%>
+<td><%= button_to "Book Appointments",new_user_booking_path(current_user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%></td>
+<%else%>
+<td>
+<%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%>
+</td>
+</tr>
+<%end%>
+<%end%>
+</table>
+<div class="button1">
+<%if current_user && current_user.admin? %>
+<%= button_to 'Edit', edit_hospital_path(@hospital),:method => :get %> 
+
+<%= button_to 'Destroy', hospital_path(@hospital),
+          method: "delete", remote: true, data: { confirm: 'Are you sure?'} %>
+<%end%>
+<%= button_to 'Back',hospitals_path,:method => :get %>
+</div>
+<!--<%= link_to 'Edit', edit_hospital_path(@hospital) %> 
 <%= link_to 'Back',hospitals_path%>
 <%= link_to 'Destroy', hospital_path(@hospital),
               method: :delete,
-              data: { confirm: 'Are you sure?' } %>
+              data: { confirm: 'Are you sure?' } %>-->

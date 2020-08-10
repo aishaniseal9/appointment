@@ -1,0 +1,31 @@
+<h1>Hello</h1>
+<%= form_for ([@hospital_test]), local: true do |form| %>
+ 
+  <% if @hospital_test.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@hospital_test.errors.count, "error") %> prohibited
+        this hospital_test relation from being saved:
+      </h2>
+      <ul>
+        <% @hospital_test.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+    <div class="field">
+  <h3>Test</h3>
+  <%= form.collection_select :test_id,Test.all.order(:name),:id,:name %>
+  </div>
+  <br>
+  <div class="field">
+  <h3>Hospital</h3>
+  <%= form.collection_select :hospital_id,Hospital.all.order(:Hname),:id,:Hname,{multiple:  true} %>
+   </div>
+
+  
+  <div class="actions">
+    <%= form.submit "Submit"%>
+  </div>
+ <%end%>

@@ -1,0 +1,21 @@
+<h1>Hello</h1>
+<table  >
+<tr>
+<th>Test Name</th>
+<th>Hospital Name</th>
+</tr>
+<tr>
+ <td style="text-align:center"><%= Test.find(@hospital_test.test_id).name %></td>
+
+<td style="text-align:center"> 
+ <%= Hospital.find(@hospital_test.hospital_id).Hname %>
+</td>
+</table>
+
+
+<div class="button1">
+<%if current_user && current_user.admin? %>
+<%= button_to 'Edit', edit_hospital_test_path(@hospital_test),:method => :get %> 
+<%end%>
+<%= button_to 'Back', hospital_tests_path,:method => :get %> 
+</div>

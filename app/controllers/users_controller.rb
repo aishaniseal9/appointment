@@ -1,12 +1,15 @@
 class UsersController < ApplicationController
+  before_action:authenticate_user! ,except: [:show,:index]
   def new
     @user=User.new
   end
   def index
-    redirect_to new_user_path
+    @users=User.all
   end
   def show
       @user= User.find(params[:id])
+      @bookings=@user.bookings
+      @hospital_tests=HospitalTest.all
   end
   def edit
     @user = User.find(params[:id])
@@ -24,16 +27,22 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
    
     if @user.update(user_params)
-      redirect_to @user
+      redirect_to user_path(@user)
     else
       render 'edit'
     end
   end
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-   
-    redirect_to welcome_index_path
+    
+     respond_to do |format|
+      if @user.destroy
+        format.html{redirect_to welcome_index_path,notice: 'User successfully destroyed'}
+      else
+        format.html{redirect_to user_path(@user),notice: 'User cannot be destroyed'}
+      end   
+    end
+    #redirect_to welcome_index_path
   end
 
   private 

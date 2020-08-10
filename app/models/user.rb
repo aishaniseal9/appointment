@@ -1,4 +1,8 @@
 class User < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
     validates :name,:address,:contactno,:bloodgrp,:dob,presence:true
     validates :bloodgrp,
     inclusion: { in: %w(A+ A- B+ B- AB+ AB- O+ O- ),
@@ -10,14 +14,15 @@ class User < ApplicationRecord
     validates :contactno,uniqueness: true,format: {with: /\A([0-9]){10}\Z/ ,message: "%{value} not valid "}
     #validate :correct_date
     has_one :register_user
-    has_many :bookings
-    
-    has_many :tests ,through: :bookings
-    has_many :hospitals, through: :bookings
+    has_many :bookings,dependent: :destroy
+    validate :correct_date
+    #has_many :tests ,through: :bookings
+    has_many :hospital_tests, through: :bookings
     private
     def correct_date
-        if dob.present? && dob.year.in?(1800..2020)
-            errors.add[:dob]<<"Year outside range"
+        if dob.present? && dob>=Date.current
+            errors.add(:base, 'Date is beyond current date,u Cannot be born')
+
         end
     
     end

@@ -4,8 +4,8 @@ class CreateBookings < ActiveRecord::Migration[6.0]
       t.date :bookingdate
       t.time :bookingtime
       t.references :user, null: false, foreign_key: true
-      t.references :hospital, null: false, foreign_key: true
-      t.references :test, null: false, foreign_key: true
+      t.references :hospital_test, null: false, foreign_key: true
+      #t.references :test, null: false, foreign_key: true
 
       t.timestamps
     end

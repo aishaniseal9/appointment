@@ -1,23 +1,46 @@
 <h1>Lists Of Tests</h1>
-
+<%= form_tag tests_path ,:method => 'get' do %>
+<p>
+<%= text_field_tag :search ,params[:search]%>
+<%= submit_tag "Search" ,:name => nil%>
+</p>
+<%end%>
 <table>
   <tr>
     <th>Test Name</th>
     <th>Test Description</th>
     <th>Test Amount</th>
+    <th>Hospitals Conducting the test</th>
   </tr>
   <%@tests.each do |test|%>
   <tr>
       <td><%= test.name %></td>
       <td><%= test.testdescription %></td>
        <td><%= test.testamount %></td>
-      <td><%= link_to 'Show', test_path(test) %></td>
+       <td>
+       <table>
+       
+       <%test.hospitals.each do |hospital| %>
+        <tr><%= hospital.Hname%> <br> </tr>
+        <%end%>
+        </table>
+        </td>
+       <td> <%= button_to 'Show',test_path(test),:method => :get %></td>
+         <%if current_user && current_user.admin? %>
+       <td><%= button_to 'Edit', edit_test_path(test),:method => :get %></td> 
+      <td> <%= button_to 'Destroy', test_path(test),
+          method: "delete", remote: true, data: { confirm: 'Are you sure?'} %></td>
+      <%end%>
+
+     <!--<td><%= link_to 'Show', test_path(test) %></td>
       <td><%= link_to 'Edit', edit_test_path(test) %></td>
        <td><%= link_to 'Destroy', test_path(test),
               method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+              data: { confirm: 'Are you sure?' } %></td>-->
     </tr>
   <% end %>
 </table>
-<%= link_to 'New test', new_test_path %>
+<%if current_user && current_user.admin? %>
+<%= button_to 'New test', new_test_path ,:method => :get %>
+<%end%>
  

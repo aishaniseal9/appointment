@@ -1,30 +1,73 @@
-<p>
-<strong>Name</strong>
- <%= @user.name %>
-</p>
-<p>
-<strong>Contact No</strong>
- <%= @user.contactno %>
-</p>
-<p>
-<strong>Address</strong>
- <%= @user.address %>
-</p>
-<p>
-<strong>Email</strong>
- <%= @user.email %>
-</p>
-<strong>Date of Birth</strong>
- <%= @user.dob %>
-</p>
-<p>
-<strong>Blood Grp</strong>
- <%= @user.bloodgrp %>
-</p>
-<%= link_to 'Available Tests List',tests_path,target: :_blank%>
-<%= link_to 'Hospital List','/hospitals/list',target: :_blank%>
-<%= link_to 'Edit', edit_user_path(@user) %> 
-<%= link_to 'Back',new_user_path%>
-<%= link_to 'Destroy', user_path(@user),
+
+
+<h1>Hello</h1>
+<table>
+  <tr>
+    <th>User Name</th>
+    <th>User Contact</th>
+     <th>User Address</th>
+    <th>User Email</th>
+     
+      <th>Date of birth</th>
+      <th>Blood Group</th>
+  </tr>
+  <tr>
+      <td><%= @user.name %></td>
+      <td><%= @user.contactno %></td>
+       <td><%= @user.address %></td>
+        <td><%= @user.email %></td>
+         <td><%= @user.dob %></td>
+          <td><%= @user.bloodgrp %></td>
+          
+           <td> <%= button_to 'Back',welcome_index_path,:method => :get %></td>
+          <td><%= button_to 'Edit', edit_user_registration_path(@user),:method => :get %></td> 
+          <td> <%= button_to 'Destroy', user_path(@user),
+          method: "delete", remote: true, data: { confirm: 'Are you sure?'} %></td>
+          
+    </tr>
+
+</table>
+<h1>Lists Of Tests and their Hospitals</h1>
+
+<table>
+  <tr>
+    <th>Test Name</th>
+    <th>Hospital Name</th>
+    <th>Test Description</th>
+    <th>Test Amount</th>
+    
+  </tr>
+  <% @hospital_tests.each do |hospital|%>
+  <tr style="text-align:center;">
+      <td><%= Test.find(hospital.test_id).name %></td>
+           <td><%= Hospital.find(hospital.hospital_id).Hname %></td>
+           <td><%= Test.find(hospital.test_id).testdescription %></td>
+           <td><%= Test.find(hospital.test_id).testamount %></td>
+          <td><%= button_to 'Book appointment',new_user_booking_path(@user),:method => :get,params: {hospital_test_id: hospital.id}%>
+    </tr>
+  <% end %>
+</table>
+<table>
+<tr>
+    <th>Booking Id</th>
+    <th>Test Name</th>
+    <th>Hospital Name</th>
+</tr>
+<% @bookings.each do |booking|%>
+<tr style="text-align:center">
+<td><%= booking.id %></td>
+<td><%= booking.bookingdate%></td>
+<td><%= Test.find((HospitalTest.find(booking.hospital_test_id)).test_id).name %></td>
+<td><%= Hospital.find((HospitalTest.find(booking.hospital_test_id)).hospital_id).Hname %></td>
+<% if current_user && user_signed_in?%>
+<td><%= button_to 'Cancel Appointment', user_booking_path(booking),
               method: :delete,
-              data: { confirm: 'Are you sure?' } %>
+              data: { confirm: 'Are you sure?' } %></td>
+<%end%>
+</tr>
+<% end %>
+</table>
+
+ <% if current_user %>
+<%= link_to 'Sign Out',destroy_user_session_path,method: :delete %>
+          <%end %>

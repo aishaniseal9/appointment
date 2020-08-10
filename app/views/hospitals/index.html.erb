@@ -8,7 +8,8 @@
     <th>Hospital Email</th>
      <th>Hospital Website</th>
       <th>Number of tests/day</th>
-      <th>Current date</th>
+      <th>Tests conducted under the hospital</th>
+      
   </tr>
   <%@hospitals.each do |hospital|%>
   <tr>
@@ -18,14 +19,31 @@
         <td><%= hospital.email %></td>
          <td><%= hospital.website %></td>
           <td><%= hospital.no_of_test %></td>
-           <td><%= hospital.cur_date %></td>
-      <td><%= link_to 'Show', hospital_path(hospital) %></td>
+            <td>
+       <table>
+       
+       <%hospital.tests.each do |test| %>
+        <tr><%= test.name%><br> </tr>
+        <%end%>
+        </table>
+        </td>
+            
+           <td> <%= button_to 'Show',hospital_path(hospital),:method => :get %></td>
+           <%if current_user && current_user.admin? %>
+          <td><%= button_to 'Edit', edit_hospital_path(hospital),:method => :get %></td> 
+          <td> <%= button_to 'Destroy', hospital_path(hospital),
+          method: "delete", remote: true, data: { confirm: 'Are you sure?'} %></td>
+          <%end%>
+
+      <!--<td><%= link_to 'Show', hospital_path(hospital) %></td>
       <td><%= link_to 'Edit', edit_hospital_path(hospital) %></td>
        <td><%= link_to 'Destroy', hospital_path(hospital),
               method: :delete,
-              data: { confirm: 'Are you sure?' } %></td>
+              data: { confirm: 'Are you sure?' } %></td>-->
     </tr>
   <% end %>
 </table>
-<%= link_to 'New hospital', new_hospital_path %>
+
+<%= button_to 'New hospital', new_hospital_path,:method => :get %>
+
  

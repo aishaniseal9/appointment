@@ -38,12 +38,16 @@
     <%= form.label :email %><br>
     <%= form.text_field :email %>
   </p>
-  <p>
-    <%= form.label :dob ,class:"hidden"%>Date of Birth(yyyy-mm-dd)<br>
-    <%= form.text_field :dob%>
+  
+   <p>
+   
+     <%= form.label :dob ,"Date of Birth"%><br>
+    <%= form.text_field :dob,data:{provide: 'datepicker'} %>
+   
+ 
   </p>
    <p>
-    <%= form.label :bloodgrp,class:"hidden"%>Blood Group<br>
+    <%= form.label :bloodgrp,"Blood Group"%><br>
     <%= form.text_field :bloodgrp %>
   </p>
   <p>

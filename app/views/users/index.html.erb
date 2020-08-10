@@ -1,2 +1,30 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>Welcome</h1>
+<table>
+  <tr>
+    <th>User Name</th>
+    <th>User Contact</th>
+     <th>User Address</th>
+    <th>User Email</th>
+     
+      <th>Date of birth</th>
+      <th>Blood Group</th>
+  </tr>
+  <%@users.each do |user|%>
+  <tr>
+      <td><%= user.name %></td>
+      <td><%= user.contactno %></td>
+       <td><%= user.address %></td>
+        <td><%= user.email %></td>
+         <td><%= user.dob %></td>
+          <td><%= user.bloodgrp %></td>
+          
+           <td> <%= button_to 'Show',user_path(user),:method => :get %></td>
+          <td><%= button_to 'Edit', edit_user_path(user),:method => :get %></td> 
+          <td> <%= button_to 'Destroy', user_path(user),
+          method: "delete", remote: true, data: { confirm: 'Are you sure?'} %></td>
+
+     
+    </tr>
+  <% end %>
+</table>
+<%= button_to 'New user', new_user_path,:method => :get %>

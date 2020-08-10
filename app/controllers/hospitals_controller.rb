@@ -10,10 +10,16 @@ class HospitalsController < ApplicationController
     end
     def new
         @hospital=Hospital.new
+        @tests=Test.all
+        @hospital_test =@hospital.hospital_tests.build
     end
     def create
         @hospital=Hospital.new(hospital_params)
-        @hospital.cur_date=Time.now
+        params[:tests][:ids].each do |test|
+            if !test.empty?
+                @hospital.hospital_tests.build(:test_id => test)
+            end
+        end
         if @hospital.save
             redirect_to @hospital
         else

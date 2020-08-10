@@ -1,0 +1,27 @@
+<h1>Search Results</h1>
+<% if !@search.search_hospital_tests.present?%>
+<p>No records found</p>
+<%else%>
+<table>
+<% @search.search_hospital_tests.each do |c| %>
+<tr>
+<th>Test Name</th>
+<th>Hospital Name</th>
+</tr>
+<tr>
+ <td style="text-align:center"><%= Test.find(c.test_id).name %></td>
+<td style="text-align:center"> 
+ <%= Hospital.find(c.hospital_id).Hname %>
+</td>
+ <% @hospitaltest=HospitalTest.where("test_id = ? AND hospital_id = ?", c.test_id, c.hospital.id)%>
+<%if user_signed_in? && current_user%>
+<td><%= button_to "Book Appointments",new_user_booking_path(current_user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%></td>
+<%else%>
+<td>
+<%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get%>
+<%end%>
+</td>
+</tr>
+<%end%>
+</table>
+<%end%>
