@@ -34,7 +34,13 @@
     <%= form.label :testamount ,class:"hidden"%>Test Amount<br>
     <%= form.number_field :testamount%>
   </p>
-   
+  <p>
+   <%= form.fields_for (@hospital_test) do |ht|%>
+   <%= ht.label "All hospitals"%><br />
+   <%= collection_select(:hospitals,:ids,@hospitals,:id,:Hname,{:selected =>@test.hospitals.map(&:id)},{:multiple => true})%>
+   <%end%>
+   </p>
+   <p>
     <%= form.submit %>
   </p>
  

@@ -1,7 +1,7 @@
 class TestsController < ApplicationController
     def index
-        if params[:search]
-            @tests= Test.where('name ILIKE ?',"%#{params[:search]}%")
+        if params[:query].present?
+            @tests= Test.where('name ilike ?',"%#{params[:query]}%")
         else
         @tests=Test.all
         end
@@ -16,12 +16,16 @@ class TestsController < ApplicationController
     end
     def edit
         @test=Test.find(params[:id])
+        @hospitals=Hospital.all
+        @hospital_test=@test.hospital_tests.build
         
     end
     def create
         @test=Test.new(test_params)
+        if params[:hospitals][:ids]
+            params[:hospitals][:ids]= params[:hospitals][:ids].reject(&:empty?).map(&:to_i)
         params[:hospitals][:ids].each do |hospital|
-            if !hospital.empty?
+            
                 @test.hospital_tests.build(:hospital_id => hospital)
             end
         end
@@ -32,8 +36,18 @@ class TestsController < ApplicationController
         end
     end
     def update
-        @test = Test.find(params[:id])
-   
+        @test = Test.find(params[:id]) 
+        if params[:hospitals][:ids]
+            params[:hospitals][:ids]=params[:hospitals][:ids].reject(&:empty?).map(&:to_i)
+            old_hospitals=@test.hospitals.pluck(:hospital_id)
+            testid=params[:id]
+            new_hospitals=params[:hospitals][:ids]-old_hospitals
+            old_hospitals=old_hospitals-params[:hospitals][:ids]
+            new_hospitals.each do |hospital|
+                @test.hospital_tests.build(:hospital_id => hospital)
+            end
+            HospitalTest.destroy_by(hospital_id: [old_hospitals],test_id: [testid])
+        end
         if @test.update(test_params)
           redirect_to @test
         else
@@ -41,7 +55,13 @@ class TestsController < ApplicationController
         end
     end
     def show   
-        @test= Test.find(params[:id])
+        if params[:hospital].present?
+            @test=Test.find(params[:id])
+            @hospitals=@test.hospitals.where(id:params[:hospital][:ids])
+        else
+        @test=Test.find(params[:id])
+        end
+       #@test= Test.find(params[:id])
         #@hospital=Hospital.find_by(params[:hospital_Hname=>'Apollo'])
 
     end
@@ -52,6 +72,6 @@ class TestsController < ApplicationController
     end
 private 
     def test_params
-        params.require(:test).permit(:name, :testdescription, :testamount)
+        params.require(:test).permit(:name, :testdescription, :testamount,hospital_tests_attributes: [:id,:test_id,:hospital_id])
     end
 end

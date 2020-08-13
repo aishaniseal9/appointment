@@ -1,3 +1,10 @@
+<%= form_tag hospital_path(@hospital) ,:method => 'get' do %>
+<p>
+
+<%= text_field_tag :query ,params[:query]%>
+<%= submit_tag "Search" ,:name => nil%>
+</p>
+<%end%>
 <table>
   <tr>
     <th>Hospital Name</th>
@@ -23,12 +30,31 @@
 
 <table><tr>
 <th>Tests Name:Conducted Under the hospital</th>
+<th>Test Amount</th>
 </tr>
-<% @hospital.tests.each do |form|%>
-
-
+<%if @tests.present?%>
+<%@tests.each do |form|%>
 <tr>
 <td><%= form.name %></td>
+<td><%= form.testamount%></td>
+<% @hospitaltest=HospitalTest.where("test_id = ? AND hospital_id = ?", form.id, @hospital.id)%>
+<!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
+<td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
+<%if user_signed_in? && current_user%>
+<td><%= button_to "Book Appointments",new_user_booking_path(current_user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%></td>
+<%else%>
+<td>
+<%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%>
+</td>
+<%end%>
+</tr>
+<%end%>
+<%elsif params[:query].blank?%>
+
+<% @hospital.tests.each do |form|%>
+<tr>
+<td><%= form.name %></td>
+<td><%= form.testamount%></td>
 <% @hospitaltest=HospitalTest.where("test_id = ? AND hospital_id = ?", form.id, @hospital.id)%>
 <!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
 <td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
@@ -41,6 +67,10 @@
 </tr>
 <%end%>
 <%end%>
+<%else%>
+<p>No such records found</p>
+<%end%>
+
 </table>
 <div class="button1">
 <%if current_user && current_user.admin? %>
@@ -51,8 +81,3 @@
 <%end%>
 <%= button_to 'Back',hospitals_path,:method => :get %>
 </div>
-<!--<%= link_to 'Edit', edit_hospital_path(@hospital) %> 
-<%= link_to 'Back',hospitals_path%>
-<%= link_to 'Destroy', hospital_path(@hospital),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } %>-->

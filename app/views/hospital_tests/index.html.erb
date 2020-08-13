@@ -15,25 +15,28 @@
            <td><%= Hospital.find(hospital.hospital_id).Hname %></td>
       <td> <%= button_to 'Show',hospital_test_path(hospital),:method => :get %></td>
       <%if current_user && current_user.admin? %>
-      <td><%= link_to 'Edit', edit_hospital_test_path(hospital) %></td>
+      <td><%= button_to 'Edit', edit_hospital_test_path(hospital),:method => :get %></td>
       <%end%>
-      <%if user_signed_in?%>
-      <td><%= button_to 'Book Appointment',user_path(current_user),:method=> :get%></td>
+      <% @hospitaltest=HospitalTest.where("id=?", hospital.id)%>
+<!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
+<td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
+    <%if user_signed_in? && current_user%>
+    <td><%= button_to "Book Appointments",new_user_booking_path(current_user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%></td>
       <%else%>
       <td>
-      <%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get%>
-      </td>
-      <%end%>
-      </td>
+  <%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%>
+</td>
+<%end%>
+      
       <%if current_user && current_user.admin? %>
-       <td><%= link_to 'Destroy', hospital_test_path(hospital),
-              method: :delete,
+       <td><%= button_to 'Destroy', hospital_test_path(hospital),
+              method: :delete,remote: true,
               data: { confirm: 'Are you sure?' } %></td>
       <%end%>
     </tr>
   <% end %>
 </table>
 <%if current_user && current_user.admin? %>
-<%= link_to 'New test and hospital generation', new_hospital_test_path %>
+<%= button_to 'New test and hospital generation', new_hospital_test_path,:method => :get %>
 <%end%>
  

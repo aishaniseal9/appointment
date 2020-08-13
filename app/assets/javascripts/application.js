@@ -9,6 +9,11 @@
 //= require jquery_ujs
 //= require_tree 
 
+//= require underscore
+//= require select2
+//= require messages
+//= require chosen-jquery
+
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.

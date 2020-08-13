@@ -1,3 +1,2 @@
-jQuery ->
-  $('#search').autocomplete
-    source: "/search_suggestions"                   
+jQuery(document).on 'turbolinks:load', ->
+ $('#hospitals_ids').chosen()

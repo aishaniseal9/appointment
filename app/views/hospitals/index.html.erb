@@ -1,5 +1,8 @@
 <h1>Lists Of Hospitals</h1>
-
+<%= form_tag hospitals_path,method: :get do %>
+<%= text_field_tag 'search',params[:search],placeholder:"Enter hospital name"%>
+<%= submit_tag 'Search',:name => nil %>
+<%end%>
 <table>
   <tr>
     <th>Hospital Name</th>
@@ -13,7 +16,11 @@
   </tr>
   <%@hospitals.each do |hospital|%>
   <tr>
+      <% if hospital.respond_to?(:pg_search_highlight)%>
+      <td><%= hospital.pg_search_highlight.html_safe%></td>
+      <%else%>
       <td><%= hospital.Hname %></td>
+      <%end%>
       <td><%= hospital.contact %></td>
        <td><%= hospital.Haddress %></td>
         <td><%= hospital.email %></td>
@@ -43,7 +50,8 @@
     </tr>
   <% end %>
 </table>
-
+<%if current_user && current_user.admin? %>
 <%= button_to 'New hospital', new_hospital_path,:method => :get %>
+<%end%>
 
  

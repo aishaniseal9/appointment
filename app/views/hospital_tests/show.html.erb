@@ -10,6 +10,16 @@
 <td style="text-align:center"> 
  <%= Hospital.find(@hospital_test.hospital_id).Hname %>
 </td>
+  <% @hospitaltest=HospitalTest.where("id=?", @hospital_test.id)%>
+<!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
+<td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
+    <%if user_signed_in? && current_user%>
+    <td><%= button_to "Book Appointments",new_user_booking_path(current_user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%></td>
+      <%else%>
+      <td>
+  <%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%>
+</td>
+<%end%>
 </table>
 
 

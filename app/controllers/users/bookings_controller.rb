@@ -42,13 +42,13 @@ class Users::BookingsController < ApplicationController
         end
     end
     def destroy
-        @user=User.find(params[:id])
-        @booking=Booking.find(params[:user_id])
-        @booking.destroy
+        @user=User.find(params[:user_id])
+        @booking=Booking.find(params[:id])
+       @booking.destroy 
         redirect_to user_path(@user)
     end
     private
     def booking_params
-        params.require(:booking).permit(:hospital_test_id, :user_id,:bookingdate)
+        params.require(:booking).permit(:user_id, :hospital_test_id,:bookingdate)
     end
 end

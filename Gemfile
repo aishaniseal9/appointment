@@ -31,10 +31,20 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'jquery-ui-rails'
 gem 'jquery-rails'
 gem 'searchkick'
-
+gem 'pg_search'
+gem 'select2-rails'
+gem 'underscore-rails'
+gem 'chosen-rails'
+gem 'activeadmin'
+gem 'semantic-ui-rails'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
+ 
 end
 
 group :development do

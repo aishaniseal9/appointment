@@ -9,8 +9,10 @@ class ApplicationController < ActionController::Base
   end
 end
 def after_sign_in_path_for(resource)
+  
   previous_path=session[:previous_url]
   session[:previous_url] = nil
   previous_path || root_path
+ 
 end
 end

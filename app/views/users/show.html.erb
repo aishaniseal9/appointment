@@ -50,6 +50,7 @@
 <table>
 <tr>
     <th>Booking Id</th>
+    <th>Booking Date</th>
     <th>Test Name</th>
     <th>Hospital Name</th>
 </tr>
@@ -60,7 +61,7 @@
 <td><%= Test.find((HospitalTest.find(booking.hospital_test_id)).test_id).name %></td>
 <td><%= Hospital.find((HospitalTest.find(booking.hospital_test_id)).hospital_id).Hname %></td>
 <% if current_user && user_signed_in?%>
-<td><%= button_to 'Cancel Appointment', user_booking_path(booking),
+<td><%= button_to 'Cancel Appointment', user_booking_path(@user,booking),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
 <%end%>

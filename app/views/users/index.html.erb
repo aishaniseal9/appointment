@@ -27,4 +27,6 @@
     </tr>
   <% end %>
 </table>
+<%if current_user && current_user.admin? %>
 <%= button_to 'New user', new_user_path,:method => :get %>
+<%end%>

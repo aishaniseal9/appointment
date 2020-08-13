@@ -12,7 +12,7 @@ class User < ApplicationRecord
      validates :email, presence:true,format: { with: VALID_EMAIL_REGEX },
                               uniqueness: { case_sensitive: false } if :present?
     validates :contactno,uniqueness: true,format: {with: /\A([0-9]){10}\Z/ ,message: "%{value} not valid "}
-    #validate :correct_date
+        
     has_one :register_user
     has_many :bookings,dependent: :destroy
     validate :correct_date

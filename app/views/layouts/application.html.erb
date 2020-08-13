@@ -8,7 +8,8 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'booking.js' %>
-		 <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	 <%= javascript_include_tag 'application','data-turbolinks-track': 'reload' %>
+		
 		<%= javascript_include_tag 'booking.js'%>
 		<%= javascript_include_tag 'user.js'%>
 	
@@ -45,7 +46,7 @@
 					<ul>
 						<li><%= link_to 'List of Test',tests_path%></li>
 						<li><%= link_to 'List of Hospitals',hospitals_path%></li>
-						<li><%= link_to 'List of Appointments',hospital_tests_path %></li>
+						<li><%= link_to 'Book Appointments',hospital_tests_path %></li>
 						<!--<li><%= link_to 'List of Users',users_path%></li>-->
 						<li><a href="#" class="hidden">B</a></li>
 					</ul>

@@ -1,7 +1,7 @@
 <h1>Lists Of Tests</h1>
 <%= form_tag tests_path ,:method => 'get' do %>
 <p>
-<%= text_field_tag :search ,params[:search]%>
+<%= text_field_tag :query ,params[:query]%>
 <%= submit_tag "Search" ,:name => nil%>
 </p>
 <%end%>

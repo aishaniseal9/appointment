@@ -1,3 +1,11 @@
+<%= form_tag test_path(@test) ,:method => 'get' do %>
+<h3>Search for hospital</h3>
+<p>
+<%= collection_select(:hospital,:ids,Hospital.all,:id,:Hname,include_blank: true)%>
+
+<%= submit_tag "Search" ,:name => nil%>
+</p>
+<%end%>
 <table class="c">
   <tr>
     <th>Test Name</th>
@@ -15,6 +23,24 @@
 <th>Hospital Name</th>
 </tr>
 
+<%if @hospitals.present?%>
+<%@hospitals.each do |form|%>
+<tr>
+<td><%= form.Hname %></td>
+<% @hospitaltest=HospitalTest.where("test_id = ? AND hospital_id = ?", form.id, @test.id)%>
+<!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
+<td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
+<%if user_signed_in? && current_user%>
+<td><%= button_to "Book Appointments",new_user_booking_path(current_user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%></td>
+<%else%>
+<td>
+<%=button_to 'Book Appointment',new_user_session_path(@user),:method => :get,params: {hospital_test_id: @hospitaltest.ids}%>
+</td>
+<%end%>
+</tr>
+<%end%>
+
+<%elsif params[:hospital].blank?%>
 <% @test.hospitals.each do |form|%>
 
 
@@ -31,6 +57,9 @@
 <%end%>
 <!--<td><%= button_to 'To Book appointments',hospital_tests_path ,:method => :get%></td>
 <td><%= button_to 'Destroy the association',hospital_tests_path,:method => :get %></td>-->
+<%end%>
+<%else%>
+<p>No records found</p>
 <%end%>
 </table>
 <div class="button1">

@@ -1,4 +1,4 @@
-app.Hospitals=function(){
-  this._input=$('#books-search-txt');
+Hospitals=function(){
+  this._input=$('#hospitals-search-txt');
   this._initAutocomplete()
 }

@@ -47,6 +47,12 @@
     <%= form.text_field :no_of_test %>
   </p>
   <p>
+   <%= form.fields_for (@hospital_test) do |ht|%>
+   <%= ht.label "All tests"%><br />
+   <%= collection_select(:tests,:ids,@tests,:id,:name,{:selected =>@hospital.tests.map(&:id)},{:multiple => true})%>
+   <%end%>
+   </p>
+  <p>
     <%= form.submit %>
   </p>
  
